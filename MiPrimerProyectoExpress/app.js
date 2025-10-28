@@ -15,6 +15,11 @@ app.get('/user', (req,res)=>{
     res.json({status:200, message:'success', data: users});
 });
 
+app.get('/obtenerparametro/:id', (req, res)=>{
+    const id = req.params.id;
+    res.send(id);
+});
+
 app.post('/user',(req,res)=>{
     const user = req.body;
     users.push(user);
