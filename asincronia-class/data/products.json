@@ -22,5 +22,17 @@
     "fabricanteId": 1,
     "nombre": "Tabletf",
     "descripcion": "dispositivof para entretenimiento"
+  },
+  {
+    "id": 5,
+    "fabricanteId": 1,
+    "nombre": "Nuevo",
+    "descripcion": "sirve para hacer algo"
+  },
+  {
+    "id": 6,
+    "fabricanteId": 1,
+    "nombre": "Nuevo2",
+    "descripcion": "sirve para hacer algo mas"
   }
 ]

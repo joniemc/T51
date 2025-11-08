@@ -7,7 +7,7 @@ const { text } = require('body-parser');
 
 const app = express();
 const PORT = 3000;
-
+app.use(express.json());
 function cargaLentadeTareas(ms){
     return new Promise((resolve)=>{
         
@@ -61,6 +61,16 @@ app.get('/api/products',async (req, res)=>{
     const fabricantes = await redJson('data/fabricante.json');
 
     res.json({status:200,message:'success',data:{produts:products,fabricantes:fabricantes}});
+});
+
+app.post('/api/products',async (req,res)=>{
+    const product = req.body;
+    const ruta = 'data/products.json';
+    const products = await redJson(ruta);
+    products.push(product);
+    await writeJson(ruta, products);
+
+    res.status(200).json({status:200, message:"Registro agregado exitosamente...", data:product});
 });
 
 app.listen(PORT,()=>{
