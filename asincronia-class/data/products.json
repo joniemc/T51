@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "fabricanteId": 1,
+    "nombre": "Telefono",
+    "descripcion": "sirve para hacer llamadas"
+  },
+  {
+    "id": 2,
+    "fabricanteId": 1,
+    "nombre": "Laptop",
+    "descripcion": "sirve para multiples funcionalidades"
+  },
+  {
+    "id": 3,
+    "fabricanteId": 1,
+    "nombre": "Tablet",
+    "descripcion": "dispositivo para entretenimiento"
+  },
+  {
+    "id": 4,
+    "fabricanteId": 1,
+    "nombre": "Tabletf",
+    "descripcion": "dispositivof para entretenimiento"
+  }
+]

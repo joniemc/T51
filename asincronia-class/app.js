@@ -16,19 +16,29 @@ function cargaLentadeTareas(ms){
                 message:`Esta operación termino luego de ${ms} ms`,
                 finishedAt: new Date().toISOString(),
             });
+            const fecha = new Date().toLocaleDateString();
+            const hora = new Date().toLocaleTimeString();
+            console.log(`Fecha de ejecución: ${fecha} ${hora}`);
 
             console.log('Ingreso Función');
         },ms);
-
-        
     });
 }
 
 async function redJson(ruta){
     const rutaCompleta = path.join(__dirname, ruta);
     const texto = await fs.readFile(rutaCompleta, 'utf8');
+
+    const fecha = new Date().toLocaleDateString();
+    const hora = new Date().toLocaleTimeString();
+    console.log(`Fecha de ejecución: ${fecha} ${hora}`);
     return JSON.parse(texto);
 }
+
+async function writeJson(ruta, datos){
+    const rutaCompleta = path.join(__dirname, ruta);
+    await fs.writeFile(rutaCompleta, JSON.stringify(datos, null, 2),'utf-8');
+};
 
 app.get('/tarea-asincrona',async (req, res)=>{
     console.log('Ingreso API');
@@ -44,6 +54,13 @@ app.get('/tarea-asincrona',async (req, res)=>{
         message:'success',
         data: [res1,res2]
     });
+});
+
+app.get('/api/products',async (req, res)=>{
+    const products = await redJson('data/products.json');
+    const fabricantes = await redJson('data/fabricante.json');
+
+    res.json({status:200,message:'success',data:{produts:products,fabricantes:fabricantes}});
 });
 
 app.listen(PORT,()=>{
