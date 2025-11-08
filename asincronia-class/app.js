@@ -1,9 +1,6 @@
 const express = require('express');
-const { finished } = require('stream');
-
 const fs = require('fs/promises');
 const path = require('path');
-const { text } = require('body-parser');
 
 const app = express();
 const PORT = 3000;

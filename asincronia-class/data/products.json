@@ -34,5 +34,11 @@
     "fabricanteId": 1,
     "nombre": "Nuevo2",
     "descripcion": "sirve para hacer algo mas"
+  },
+  {
+    "id": 7,
+    "fabricanteId": 1,
+    "nombre": "Nuevo2",
+    "descripcion": "sirve para hacer algo mas"
   }
 ]
