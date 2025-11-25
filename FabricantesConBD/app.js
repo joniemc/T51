@@ -61,7 +61,6 @@ app.post('/fabricantes',(req, res)=>{
         res.status(400).json({status:400,message:'Los parametros Id, Nombre y Descripción son requeridos.'});
     }
     else{
-        
         //query con un select a la tabla fabricante por nombre, 
         // necesitamos un count si count > 0 "El registro ya existe"
 
