@@ -1,8 +1,10 @@
 const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = 3000;
+const SECRET_KEY = 'MiClaveSecreta';
 
 app.use(express.json());
 
@@ -39,21 +41,30 @@ const miMiddleware = (req, res, next)=>{
     
 }
 
-const authMiddleware = (erq, res, next)=>{
+const authMiddleware = (req, res, next)=>{
     const authHeader = req.headers['authorization'];
 
     if(!authHeader){
         return res.status(401).json({status:401, message:'El token es obligatorio...'});
     }
 
-    next();
+    const token = authHeader.split(' ')[1];
+
+    jwt.verify(token, SECRET_KEY, (err, user)=>{
+        if(err){
+            return res.status(401).json({status:401, message:'Token invalido...'});
+        }
+
+        next();
+    });
+    
 }
 
 app.get('/test', authMiddleware, (req, res)=>{
     res.send('Hello');
 });
 
-app.get('/sinmiddleware', miMiddleware, (req, res)=>{
+app.get('/sinmiddleware', authMiddleware, (req, res)=>{
     res.send('Hello not middleware');
 });
 
@@ -90,9 +101,28 @@ app.post('/login',async (req, res)=>{
             return res.status(401).json({status:401, message:'Credenciales invalidas...'});
         }
 
-        res.status(200).json({status:200, message:'success', data: 'token'});
+        const token = jwt.sign({username: user.username},SECRET_KEY,{expiresIn: '1h'});
+
+        res.status(200).json({status:200, message:'success', data: token});
     });
 
+});
+
+//Administración de usuarios
+app.post('/usuario', authMiddleware, async (req, res)=>{
+    const user = req.body;
+
+    const saltRound = 10;
+    const passwordHash = await bcrypt.hash(user.password,saltRound);
+
+    //sql
+    const sql = 'INSERT INTO usuario (username,password) VALUES(?,?)';
+
+    pool.query(sql, [user.username,passwordHash], (err, results)=>{
+        //Completar
+    });
+
+    res.json({status:200, message:'Completar'});
 });
 
 app.listen(PORT, ()=>{
