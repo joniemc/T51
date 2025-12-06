@@ -2,11 +2,13 @@ const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 const app = express();
 const PORT = 3000;
 const SECRET_KEY = 'MiClaveSecreta';
 
 app.use(express.json());
+app.use(cors());
 
 //Conexión a bases de datos
 const pool = mysql.createPool({
@@ -77,7 +79,7 @@ app.get('/gethash/:plainText', async (req, res)=>{
 
 });
 
-app.post('/login',async (req, res)=>{
+app.post('/api/login',async (req, res)=>{
     const {username, password} = req.body;
 
     if(!username || !password){
@@ -103,7 +105,7 @@ app.post('/login',async (req, res)=>{
 
         const token = jwt.sign({username: user.username},SECRET_KEY,{expiresIn: '1h'});
 
-        res.status(200).json({status:200, message:'success', data: token});
+        res.status(200).json({status:200, message:'success', token: token});
     });
 
 });
