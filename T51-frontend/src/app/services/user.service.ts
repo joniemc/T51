@@ -17,7 +17,7 @@ export class UserService {
       Authorization: `Bearer ${token}` // Agrega el token en el header
     });
 
-    return this.http.get(this.apiUrl+'/users', { headers });
+    return this.http.get(this.apiUrl+'/usuario', { headers });
   }
 
   getVehiculos(): Observable<any> {
